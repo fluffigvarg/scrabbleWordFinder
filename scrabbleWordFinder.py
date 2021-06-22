@@ -31,7 +31,6 @@ def get_user_tiles():
                 temp_rack.append(current_tile)
         except:
             print('Invalid letter! Try again')
-    print(temp_rack) # for testing, remove
     return temp_rack
 
 def load_dictionary():

@@ -13,32 +13,32 @@ points = {'a': 1, 'c': 3, 'b': 3, 'e': 1, 'd': 2, 'g': 2,
   	    'x': 8, 'z': 10}
 results = {}
 
-def get_user_tiles():
+def get_user_tiles() -> list:
     """
     Gets user's tiles.
 
     Returns:
-        Dictionary containing individual letters in rack.
+        List containing individual letters in rack.
 
     """
 
     total_tiles = 7
     temp_rack = []
     while len(temp_rack) < total_tiles:
-        current_tile = input('Input a letter: ')
+        current_tile = input('Input a letter: ').lower()
         try:
-            if points[current_tile.lower()] > 0:
+            if points[current_tile] > 0:
                 temp_rack.append(current_tile)
         except:
             print('Invalid letter! Try again')
     return temp_rack
 
-def load_dictionary():
+def load_dictionary() -> list:
     """
     Loads valid word list from text file.
 
     Returns:
-        Dictionary containing valid words.
+        List containing valid words.
     """
 
     with open('words.txt', 'r') as f:
@@ -46,13 +46,13 @@ def load_dictionary():
     words = [x.strip() for x in sowpods]
     return words
 
-def check_valid(word, rack):
+def check_valid(word: str, rack: list) -> bool:
     """
     Checks to see if a word can be made from rack.
 
     Parameters:
         word (str): Valid word
-        rack (dict): Contains user's rack
+        rack (list): Contains user's rack
     """
 
     temp_rack = copy.deepcopy(rack)
@@ -63,7 +63,7 @@ def check_valid(word, rack):
             return False
     return True
 
-def calculate_score(word):
+def calculate_score(word: str) -> int:
     """
     Calculates the point value of valid word.
 
@@ -86,8 +86,6 @@ if __name__ == '__main__':
         word_status = check_valid(word, rack)
         if word_status:
             words_in_rack.append(word)
-        else:
-            continue
 
     for word in words_in_rack:
         words_and_points[word] = calculate_score(word)
